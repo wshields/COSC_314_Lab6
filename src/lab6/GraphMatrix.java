@@ -14,6 +14,7 @@ public class GraphMatrix {
         colorArray = new int[x];
     }
 
+    //Prints the adjacency matrix
     public void printMatrix() {
         String out = "";
         for (int i = 0; i < setLength; i++) {
@@ -30,6 +31,7 @@ public class GraphMatrix {
         System.out.println(out);
     }
 
+    // Prints the colors array
     public void printColors(){
         System.out.println(Arrays.toString(colorArray));
     }
@@ -39,6 +41,21 @@ public class GraphMatrix {
         for(int i = 1; i < adjacencyMatrix[0].length; i++){
             colorArray[i] = adjacencyMatrix[0][i] == 1 ? 2 : 0;
         }
+        for(int i = 1; i < colorArray.length; i++){
+            int tempColor = colorArray[i];
+            for(int j = 0; j < adjacencyMatrix[i].length; j++){
+                if(adjacencyMatrix[i][j] == 1){
+                    if(colorArray[j] == tempColor){
+                        System.out.println("Graph is not bipartite");
+                        return;
+                    } else {
+                        colorArray[j] = tempColor == 1 ? 2 : 1;
+                    }
+                }
+            }
+        }
+        System.out.println("Graph is bipartite, bi-partition below: ");
+        printColors();
     }
 
 
